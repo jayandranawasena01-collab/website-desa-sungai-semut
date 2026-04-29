@@ -552,7 +552,7 @@ export default function App() {
     const username = e.target.username.value;
     const password = e.target.password.value;
     
-    if (username === 'Andiwidodo' && password === 'admin2311') {
+    if (username === 'Sungaisemut' && password === 'admin2311') {
       setIsAdmin(true);
       setShowLoginModal(false);
     } else {
