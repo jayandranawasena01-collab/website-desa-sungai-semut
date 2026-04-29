@@ -244,7 +244,7 @@ const initialBeranda = {
   namaDesa: "Sungai Semut",
   deskripsiDesa: "Kecamatan Makarti Jaya, Kabupaten Banyuasin \nProvinsi Sumatera Selatan",
   fotoKades: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&q=80",
-  namaKades: "Hasanuddin, S.IP",
+  namaKades: "Herman",
   jabatanKades: "Kepala Desa Sungai Semut",
   sambutanKades: "Assalamu'alaikum Warahmatullahi Wabarakatuh. Puji syukur kita panjatkan ke hadirat Allah SWT. Selamat datang di website resmi Desa Sungai Semut. Melalui media ini, kami berupaya mewujudkan transparansi dan kemudahan akses informasi bagi seluruh warga dan masyarakat luas mengenai program kerja, kegiatan, dan pembangunan di desa kita tercinta.",
   stats: [
