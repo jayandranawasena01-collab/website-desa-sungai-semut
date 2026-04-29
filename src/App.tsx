@@ -266,7 +266,6 @@ export default function App() {
   // State Admin Pengaduan
   const [showAdminPengaduan, setShowAdminPengaduan] = useState(false);
   const [lampiranPengaduan, setLampiranPengaduan] = useState<string>('');
-  const [deletePengaduanId, setDeletePengaduanId] = useState<any>(null);
 
   // State Active Pages & Tabs disimpan di localStorage agar tidak kembali ke beranda saat refresh
   const [currentPage, setCurrentPage] = useState(() => {
@@ -836,7 +835,7 @@ export default function App() {
                         <button
                           onClick={() => {
                             setIsDesktopProfilOpen(false);
-                            setIsDesktopBeritaOpen(false);
+                            setIsDesktopPemerintahOpen(false);
                             if (currentPage === 'pemerintah') {
                               setIsDesktopPemerintahOpen(!isDesktopPemerintahOpen);
                             } else {
@@ -1341,7 +1340,7 @@ export default function App() {
                    </div>
                    Kotak Masuk Pengaduan
                  </h3>
-                 <button onClick={() => { setShowAdminPengaduan(false); setDeletePengaduanId(null); }} className="text-gray-400 hover:text-gray-600 bg-gray-100 p-2 rounded-full hover:bg-gray-200 transition">
+                 <button onClick={() => setShowAdminPengaduan(false)} className="text-gray-400 hover:text-gray-600 bg-gray-100 p-2 rounded-full hover:bg-gray-200 transition">
                    <X className="w-5 h-5" />
                  </button>
                </div>
@@ -1372,21 +1371,9 @@ export default function App() {
                                      <Check className="w-4 h-4 mr-1" /> Tandai Dibaca
                                    </button>
                                 )}
-                                <div className="relative">
-                                  <button onClick={() => setDeletePengaduanId(item.id)} className="text-rose-600 bg-rose-100 hover:bg-rose-200 p-2 rounded-lg transition" title="Hapus Pesan">
-                                    <Trash2 className="w-4 h-4" />
-                                  </button>
-                                  {deletePengaduanId === item.id && (
-                                    <div className="absolute bottom-full right-0 mb-2 w-48 bg-white border border-gray-200 shadow-[0_10px_25px_rgba(0,0,0,0.15)] rounded-xl p-3 z-50 animate-in fade-in zoom-in duration-200 origin-bottom-right">
-                                      <p className="text-xs font-bold text-gray-800 mb-3 text-left leading-snug">Hapus pesan pengaduan ini secara permanen?</p>
-                                      <div className="flex gap-2 justify-end">
-                                        <button onClick={() => setDeletePengaduanId(null)} className="text-[10px] px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-md text-gray-700 font-bold transition">Batal</button>
-                                        <button onClick={() => { updatePengaduan(daftarPengaduan.filter((p:any) => p.id !== item.id)); setDeletePengaduanId(null); }} className="text-[10px] px-3 py-1.5 bg-rose-500 hover:bg-rose-600 rounded-md text-white font-bold transition">Ya, Hapus</button>
-                                      </div>
-                                      <div className="absolute top-full right-2.5 -mt-[1px] w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent border-t-white drop-shadow-[0_2px_1px_rgba(0,0,0,0.05)]"></div>
-                                    </div>
-                                  )}
-                                </div>
+                                <button onClick={() => showConfirm('Hapus pesan pengaduan ini secara permanen?', () => updatePengaduan(daftarPengaduan.filter((p:any) => p.id !== item.id)))} className="text-rose-600 bg-rose-100 hover:bg-rose-200 p-2 rounded-lg transition" title="Hapus Pesan">
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
                              </div>
                           </div>
                           <div className="bg-white p-4 rounded-xl border border-gray-100 mt-2">
