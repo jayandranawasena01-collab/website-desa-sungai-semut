@@ -5,7 +5,7 @@ import {
   LogIn, LogOut, Edit, Trash2, Plus, Image as ImageIcon, Save, Upload, CheckCircle2,
   BookOpen, Target, Map, Building2, ChevronDown, CalendarDays, PieChart, TrendingUp, Activity,
   ChevronLeft, ChevronsLeft, ChevronsRight,
-  Headphones, Send, FileText
+  Headphones, Send, FileText, Inbox, Check, Clock
 } from 'lucide-react';
 
 // ================= FIREBASE CLOUD STORAGE SETUP =================
@@ -263,6 +263,10 @@ export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isPengaduanOpen, setIsPengaduanOpen] = useState(false);
   
+  // State Admin Pengaduan
+  const [showAdminPengaduan, setShowAdminPengaduan] = useState(false);
+  const [lampiranPengaduan, setLampiranPengaduan] = useState<string>('');
+
   // State Active Pages & Tabs disimpan di localStorage agar tidak kembali ke beranda saat refresh
   const [currentPage, setCurrentPage] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -331,6 +335,7 @@ export default function App() {
   const [daftarLembaga, setDaftarLembaga] = useState(() => getInitialData('sungai_semut_lembaga', initialLembaga));
   const [daftarProfil, setDaftarProfil] = useState(() => getInitialData('sungai_semut_profil', initialProfil));
   const [dataBeranda, setDataBeranda] = useState(() => getInitialData('sungai_semut_beranda', initialBeranda));
+  const [daftarPengaduan, setDaftarPengaduan] = useState(() => getInitialData('sungai_semut_pengaduan', []));
 
   // ================= MONITORING KONEKSI =================
   useEffect(() => {
@@ -437,8 +442,12 @@ export default function App() {
       (snap) => handleServerData(snap, setDaftarProfil, 'sungai_semut_profil'), handleServerError
     );
 
+    const unsubPengaduan = onSnapshot(doc(db, 'artifacts', appId, 'public', 'data', 'sungai_semut_pengaduan', 'main'), 
+      (snap) => handleServerData(snap, setDaftarPengaduan, 'sungai_semut_pengaduan'), handleServerError
+    );
+
     return () => {
-      unsubBeranda(); unsubBerita(); unsubGrafik(); unsubAgenda(); unsubPerangkat(); unsubLembaga(); unsubProfil();
+      unsubBeranda(); unsubBerita(); unsubGrafik(); unsubAgenda(); unsubPerangkat(); unsubLembaga(); unsubProfil(); unsubPengaduan();
     };
   }, [user]);
 
@@ -496,6 +505,13 @@ export default function App() {
     if (typeof window !== 'undefined') localStorage.setItem('sungai_semut_profil', JSON.stringify(newData));
     if(db && user) {
       try { await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'sungai_semut_profil', 'main'), { value: JSON.stringify(newData) }); } catch(e) { console.error(e); }
+    }
+  };
+  const updatePengaduan = async (newData: any) => {
+    setDaftarPengaduan(newData);
+    if (typeof window !== 'undefined') localStorage.setItem('sungai_semut_pengaduan', JSON.stringify(newData));
+    if(db && user) {
+      try { await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'sungai_semut_pengaduan', 'main'), { value: JSON.stringify(newData) }); } catch(e) { console.error(e); }
     }
   };
 
@@ -564,6 +580,36 @@ export default function App() {
 
   const handleLogout = () => {
     showConfirm('Yakin ingin keluar dari sesi Admin?', () => setIsAdmin(false));
+  };
+
+  const handleLampiranPengaduan = (e: any) => {
+    const file = e.target.files[0];
+    if (file) {
+      compressImage(file, 800, false, (base64: any) => {
+        setLampiranPengaduan(base64);
+      });
+    }
+  };
+
+  const handleSubmitPengaduan = (e: any) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const newPengaduan = {
+      id: Date.now(),
+      nama: formData.get('nama'),
+      wa: formData.get('wa'),
+      kategori: formData.get('kategori'),
+      isi: formData.get('isi'),
+      lampiran: lampiranPengaduan,
+      tanggal: new Date().toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' }),
+      status: 'baru'
+    };
+    
+    updatePengaduan([newPengaduan, ...daftarPengaduan]);
+    showAlert('Pengaduan berhasil dikirim! Terima kasih atas partisipasi Anda.');
+    setIsPengaduanOpen(false);
+    setLampiranPengaduan('');
+    e.target.reset();
   };
 
   const menuPemerintah = [
@@ -1047,19 +1093,32 @@ export default function App() {
         </header>
 
         {isAdmin && (
-          <div className="bg-gradient-to-r from-blue-100 to-sky-100 text-sky-900 px-4 py-3 text-sm font-medium text-center shadow-md flex flex-col items-center justify-center gap-2 z-30 relative border-b border-sky-200">
+          <div className="bg-gradient-to-r from-blue-100 to-sky-100 text-sky-900 px-4 py-3 text-sm font-medium text-center shadow-md flex flex-col items-center justify-center z-30 relative border-b border-sky-200">
              <div className="flex items-center gap-2 font-bold">
                <CheckCircle2 className="w-5 h-5 text-sky-600" /> 
                <span>Mode Admin Aktif: Anda dapat mengedit konten website.</span>
              </div>
              
+             <button
+               onClick={() => setShowAdminPengaduan(true)}
+               className="mt-2 mb-1 flex items-center bg-white border border-sky-300 text-sky-700 px-4 py-1.5 rounded-full text-sm font-bold shadow-sm hover:bg-sky-50 transition"
+             >
+               <Inbox className="w-4 h-4 mr-2" />
+               Kotak Masuk Pengaduan
+               {daftarPengaduan.filter((p:any) => p.status === 'baru').length > 0 && (
+                 <span className="ml-2 bg-rose-500 text-white px-2 py-0.5 rounded-full text-[10px] animate-pulse">
+                   {daftarPengaduan.filter((p:any) => p.status === 'baru').length} Baru
+                 </span>
+               )}
+             </button>
+             
              {!isDbConnected && !dbError && (
-               <div className="bg-amber-100 text-amber-800 border border-amber-300 px-3 py-1 rounded-full text-xs font-bold animate-pulse shadow-sm">
+               <div className="bg-amber-100 text-amber-800 border border-amber-300 px-3 py-1 rounded-full text-xs font-bold animate-pulse shadow-sm mt-1">
                  ⏳ Menghubungkan ke Server / Mode Offline Sementara...
                </div>
              )}
              {isDbConnected && (
-               <div className="bg-blue-500 text-white border border-blue-600 px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+               <div className="bg-blue-500 text-white border border-blue-600 px-3 py-1 rounded-full text-xs font-bold shadow-sm mt-1">
                  ✅ Status Database: ONLINE (Tersinkronisasi dengan Server).
                </div>
              )}
@@ -1200,21 +1259,21 @@ export default function App() {
             {/* Form Pengaduan Modal */}
             {isPengaduanOpen && (
               <div className="bg-white rounded-[16px] shadow-[0_15px_50px_rgba(0,0,0,0.25)] p-5 sm:p-6 w-[320px] sm:w-[350px] mb-4 border border-gray-100 animate-in slide-in-from-bottom-5 origin-bottom-right">
-                <form onSubmit={(e) => { e.preventDefault(); showAlert('Pengaduan berhasil dikirim! Terima kasih atas partisipasi Anda.'); setIsPengaduanOpen(false); }}>
+                <form onSubmit={handleSubmitPengaduan}>
                   {/* Nama */}
                   <div className="mb-4">
                     <label className="block text-[14px] font-bold text-gray-900 mb-1.5">Nama <span className="text-red-500">*</span></label>
-                    <input type="text" required placeholder="Masukkan nama Anda" className="w-full px-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#83d65c] focus:border-[#83d65c] outline-none text-[13px] text-gray-700 transition-all placeholder:text-gray-400" />
+                    <input type="text" name="nama" required placeholder="Masukkan nama Anda" className="w-full px-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#83d65c] focus:border-[#83d65c] outline-none text-[13px] text-gray-700 transition-all placeholder:text-gray-400" />
                   </div>
                   {/* No WA */}
                   <div className="mb-4">
                     <label className="block text-[14px] font-bold text-gray-900 mb-1.5">Nomor Telepon/WA <span className="text-red-500">*</span></label>
-                    <input type="tel" required placeholder="Masukkan nomor HP/WhatsApp" className="w-full px-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#83d65c] focus:border-[#83d65c] outline-none text-[13px] text-gray-700 transition-all placeholder:text-gray-400" />
+                    <input type="tel" name="wa" required placeholder="Masukkan nomor HP/WhatsApp" className="w-full px-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#83d65c] focus:border-[#83d65c] outline-none text-[13px] text-gray-700 transition-all placeholder:text-gray-400" />
                   </div>
                   {/* Kategori */}
                   <div className="mb-4 relative">
                     <label className="block text-[14px] font-bold text-gray-900 mb-1.5">Kategori Pengaduan <span className="text-red-500">*</span></label>
-                    <select required className="w-full px-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#83d65c] focus:border-[#83d65c] outline-none text-[13px] text-gray-500 appearance-none transition-all">
+                    <select name="kategori" required className="w-full px-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#83d65c] focus:border-[#83d65c] outline-none text-[13px] text-gray-500 appearance-none transition-all">
                       <option value="">Pilih kategori pengaduan</option>
                       <option value="Infrastruktur">Infrastruktur</option>
                       <option value="Pelayanan">Pelayanan Publik</option>
@@ -1226,7 +1285,7 @@ export default function App() {
                   {/* Pengaduan Textarea */}
                   <div className="mb-4">
                     <label className="block text-[14px] font-bold text-gray-900 mb-1.5">Pengaduan <span className="text-red-500">*</span></label>
-                    <textarea required rows={3} placeholder="Masukkan kesan, informasi, atau detail aduan Anda" className="w-full px-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#83d65c] focus:border-[#83d65c] outline-none text-[13px] text-gray-700 resize-none transition-all placeholder:text-gray-400"></textarea>
+                    <textarea name="isi" required rows={3} placeholder="Masukkan kesan, informasi, atau detail aduan Anda" className="w-full px-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#83d65c] focus:border-[#83d65c] outline-none text-[13px] text-gray-700 resize-none transition-all placeholder:text-gray-400"></textarea>
                   </div>
                   {/* Lampiran */}
                   <div className="mb-5">
@@ -1235,8 +1294,8 @@ export default function App() {
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <FileText className="h-4 w-4 text-gray-500" />
                       </div>
-                      <input type="text" readOnly placeholder="Unggah foto/PDF jika ada" className="w-full pl-9 pr-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg text-[13px] text-gray-400 cursor-pointer" />
-                      <input type="file" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                      <input type="text" readOnly placeholder={lampiranPengaduan ? '✓ Foto berhasil dipilih' : 'Unggah foto jika ada'} className="w-full pl-9 pr-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg text-[13px] text-gray-400 cursor-pointer" />
+                      <input type="file" accept="image/*" onChange={handleLampiranPengaduan} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
                   </div>
                   {/* Submit Button */}
@@ -1269,6 +1328,72 @@ export default function App() {
               </button>
             </div>
         </div>
+        
+        {/* MODAL INBOX PENGADUAN (KHUSUS ADMIN) */}
+        {showAdminPengaduan && isAdmin && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-[120] p-4">
+            <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full p-6 md:p-8 max-h-[90vh] flex flex-col animate-in zoom-in-95 border border-blue-100">
+               <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                 <h3 className="text-2xl font-extrabold text-gray-900 flex items-center">
+                   <div className="bg-sky-100 p-2 rounded-xl mr-3">
+                     <Inbox className="w-6 h-6 text-sky-600" />
+                   </div>
+                   Kotak Masuk Pengaduan
+                 </h3>
+                 <button onClick={() => setShowAdminPengaduan(false)} className="text-gray-400 hover:text-gray-600 bg-gray-100 p-2 rounded-full hover:bg-gray-200 transition">
+                   <X className="w-5 h-5" />
+                 </button>
+               </div>
+
+               <div className="flex-grow overflow-y-auto custom-scrollbar pr-2 space-y-4">
+                 {daftarPengaduan.length === 0 ? (
+                    <div className="text-center text-gray-500 py-10 font-medium bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                      Belum ada pengaduan yang masuk dari pengunjung.
+                    </div>
+                 ) : (
+                    daftarPengaduan.map((item: any) => (
+                       <div key={item.id} className={`p-5 rounded-2xl border ${item.status === 'baru' ? 'bg-sky-50/50 border-sky-200' : 'bg-white border-gray-200'} shadow-sm relative transition-colors`}>
+                          <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mb-3">
+                             <div>
+                               <h4 className="font-extrabold text-gray-900 text-lg flex items-center gap-2">
+                                 {item.nama}
+                                 {item.status === 'baru' && <span className="bg-rose-500 text-white text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">Baru</span>}
+                               </h4>
+                               <div className="text-sm text-gray-500 font-medium flex flex-wrap items-center gap-x-4 gap-y-1 mt-1">
+                                  <span className="flex items-center"><Clock className="w-3.5 h-3.5 mr-1" /> {item.tanggal}</span>
+                                  <span className="flex items-center"><Phone className="w-3.5 h-3.5 mr-1" /> <a href={`https://wa.me/${item.wa.replace(/^0/, '62')}`} target="_blank" rel="noopener noreferrer" className="hover:text-sky-600 hover:underline">{item.wa}</a></span>
+                                  <span className="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-md text-xs">{item.kategori}</span>
+                               </div>
+                             </div>
+                             <div className="flex gap-2">
+                                {item.status === 'baru' && (
+                                   <button onClick={() => updatePengaduan(daftarPengaduan.map((p:any) => p.id === item.id ? {...p, status: 'dibaca'} : p))} className="text-sky-600 bg-sky-100 hover:bg-sky-200 px-3 py-1.5 rounded-lg transition text-sm font-bold flex items-center" title="Tandai telah dibaca">
+                                     <Check className="w-4 h-4 mr-1" /> Tandai Dibaca
+                                   </button>
+                                )}
+                                <button onClick={() => showConfirm('Hapus pesan pengaduan ini secara permanen?', () => updatePengaduan(daftarPengaduan.filter((p:any) => p.id !== item.id)))} className="text-rose-600 bg-rose-100 hover:bg-rose-200 p-2 rounded-lg transition" title="Hapus Pesan">
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                             </div>
+                          </div>
+                          <div className="bg-white p-4 rounded-xl border border-gray-100 mt-2">
+                             <p className="text-gray-700 leading-relaxed whitespace-pre-wrap text-sm font-medium">{item.isi}</p>
+                          </div>
+                          
+                          {item.lampiran && (
+                            <div className="mt-3">
+                               <p className="text-xs font-bold text-gray-500 mb-1.5 flex items-center"><FileText className="w-3.5 h-3.5 mr-1" /> Lampiran Foto:</p>
+                               <img src={item.lampiran} alt="Lampiran Pengaduan" className="max-w-[200px] h-auto rounded-lg border border-gray-200 shadow-sm cursor-pointer hover:opacity-90 transition-opacity" onClick={() => window.open(item.lampiran, '_blank')} />
+                            </div>
+                          )}
+                       </div>
+                    ))
+                 )}
+               </div>
+            </div>
+          </div>
+        )}
+
       </div>
 
       {showLoginModal && (
