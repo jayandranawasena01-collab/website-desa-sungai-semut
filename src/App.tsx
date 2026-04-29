@@ -136,11 +136,11 @@ const AnimatedNumber = ({ value, duration = 2000 }: { value: number, duration?: 
 const initialBerita = [
   {
     id: 1,
-    judul: "Penyaluran Bantuan Langsung Tunai (BLT) Dana Desa Delta Upang Tahap III",
+    judul: "Penyaluran Bantuan Langsung Tunai (BLT) Dana Desa sungai semut Tahap III",
     tanggal: "12 Okt 2024",
     kategori: "Sosial",
     gambar: "https://images.unsplash.com/photo-1593113565694-c6f130d24c3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    excerpt: "Pemerintah Desa Delta Upang kembali menyalurkan Bantuan Langsung Tunai (BLT) yang bersumber dari Dana Desa (DD) kepada keluarga penerima manfaat...\n\nBantuan ini diharapkan dapat meringankan beban ekonomi warga, terutama dalam memenuhi kebutuhan pokok sehari-hari. Kepala Desa menghimbau agar dana tersebut digunakan sebaik-baiknya untuk kebutuhan primer.",
+    excerpt: "Pemerintah Desa sungai semut kembali menyalurkan Bantuan Langsung Tunai (BLT) yang bersumber dari Dana Desa (DD) kepada keluarga penerima manfaat...\n\nBantuan ini diharapkan dapat meringankan beban ekonomi warga, terutama dalam memenuhi kebutuhan pokok sehari-hari. Kepala Desa menghimbau agar dana tersebut digunakan sebaik-baiknya untuk kebutuhan primer.",
     galeri: []
   },
   {
@@ -149,7 +149,7 @@ const initialBerita = [
     tanggal: "05 Okt 2024",
     kategori: "Kegiatan",
     gambar: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    excerpt: "Mengantisipasi datangnya musim penghujan, warga Desa Delta Upang bergotong royong membersihkan saluran air dan fasilitas umum guna mencegah banjir...\n\nKegiatan ini diikuti oleh seluruh elemen masyarakat. Selain membersihkan selokan, warga juga melakukan pemangkasan dahan pohon yang rawan tumbang serta membersihkan area pekarangan fasilitas umum.",
+    excerpt: "Mengantisipasi datangnya musim penghujan, warga Desa sungai semut bergotong royong membersihkan saluran air dan fasilitas umum guna mencegah banjir...\n\nKegiatan ini diikuti oleh seluruh elemen masyarakat. Selain membersihkan selokan, warga juga melakukan pemangkasan dahan pohon yang rawan tumbang serta membersihkan area pekarangan fasilitas umum.",
     galeri: []
   },
   {
@@ -158,7 +158,7 @@ const initialBerita = [
     tanggal: "28 Sep 2024",
     kategori: "Pemberdayaan",
     gambar: "https://images.unsplash.com/photo-1592982537447-6f2a6a0a091c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    excerpt: "BUMDes bekerja sama dengan penyuluh pertanian kecamatan mengadakan pelatihan pembuatan pupuk kompos organik yang diikuti oleh petani lokal Delta Upang...\n\nPelatihan ini bertujuan untuk meningkatkan kemandirian petani dalam penyediaan pupuk, menekan biaya produksi pertanian, sekaligus mengedukasi warga tentang pengelolaan limbah organik.",
+    excerpt: "BUMDes bekerja sama dengan penyuluh pertanian kecamatan mengadakan pelatihan pembuatan pupuk kompos organik yang diikuti oleh petani lokal sungai semut...\n\nPelatihan ini bertujuan untuk meningkatkan kemandirian petani dalam penyediaan pupuk, menekan biaya produksi pertanian, sekaligus mengedukasi warga tentang pengelolaan limbah organik.",
     galeri: []
   }
 ];
@@ -174,8 +174,8 @@ const thn = new Date().getFullYear();
 const bln = String(new Date().getMonth() + 1).padStart(2, '0');
 const initialAgenda = [
   { id: 1, judul: "Kerja Bakti Bersih Desa", lokasi: "Seluruh Area Dusun", tanggal: `${thn}-${bln}-05` },
-  { id: 2, judul: "Penyaluran BLT Tahap Lanjutan", lokasi: "Balai Desa Delta Upang", tanggal: `${thn}-${bln}-12` },
-  { id: 3, judul: "Musyawarah Perencanaan Pembangunan", lokasi: "Balai Desa Delta Upang", tanggal: `${thn}-${bln}-28` }
+  { id: 2, judul: "Penyaluran BLT Tahap Lanjutan", lokasi: "Balai Desa sungai semut", tanggal: `${thn}-${bln}-12` },
+  { id: 3, judul: "Musyawarah Perencanaan Pembangunan", lokasi: "Balai Desa sungai semut", tanggal: `${thn}-${bln}-28` }
 ];
 
 const initialPerangkat = [
@@ -205,28 +205,28 @@ const initialProfil = [
     iconName: "BookOpen",
     judul: "Sejarah",
     gambar: "https://images.unsplash.com/photo-1572005996025-06900f6b6474?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    konten: "Desa Delta Upang memiliki sejarah panjang yang mengakar pada nilai-nilai perjuangan dan semangat gotong royong masyarakat. Sejak awal berdirinya, desa ini terus berkembang menjadi pusat harmoni sosial tempat bertemunya keberagaman budaya yang menyatu dalam kehangatan.\n\nPerjalanan panjang desa ini tidak lepas dari peran serta tetua adat dan tokoh masyarakat yang bahu-membahu membangun peradaban dari tanah yang dulunya terpencil menjadi kawasan yang kian maju dan terbuka terhadap inovasi."
+    konten: "Desa sungai semut memiliki sejarah panjang yang mengakar pada nilai-nilai perjuangan dan semangat gotong royong masyarakat. Sejak awal berdirinya, desa ini terus berkembang menjadi pusat harmoni sosial tempat bertemunya keberagaman budaya yang menyatu dalam kehangatan.\n\nPerjalanan panjang desa ini tidak lepas dari peran serta tetua adat dan tokoh masyarakat yang bahu-membahu membangun peradaban dari tanah yang dulunya terpencil menjadi kawasan yang kian maju dan terbuka terhadap inovasi."
   },
   {
     id: 2,
     iconName: "Target",
     judul: "Visi & Misi",
     gambar: "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    konten: "VISI KAMI:\n\"Terwujudnya Desa Delta Upang yang Mandiri, Sejahtera, Religius, dan Berbudaya melalui Tata Kelola Pemerintahan yang Baik dan Inovatif.\"\n\nMISI DESA:\n1. Meningkatkan kualitas pelayanan publik administrasi kependudukan yang cepat, tepat, dan transparan.\n2. Meningkatkan pembangunan infrastruktur jalan, jembatan, dan fasilitas umum desa yang berkualitas dan merata.\n3. Memberdayakan ekonomi kerakyatan dan pertanian melalui optimalisasi BUMDes dan Kelompok Tani.\n4. Meningkatkan kualitas sumber daya manusia melalui dukungan pada sektor pendidikan dan kesehatan dasar.\n5. Melestarikan nilai-nilai gotong royong, budaya lokal, dan kerukunan antar umat beragama."
+    konten: "VISI KAMI:\n\"Terwujudnya Desa sungai semut yang Mandiri, Sejahtera, Religius, dan Berbudaya melalui Tata Kelola Pemerintahan yang Baik dan Inovatif.\"\n\nMISI DESA:\n1. Meningkatkan kualitas pelayanan publik administrasi kependudukan yang cepat, tepat, dan transparan.\n2. Meningkatkan pembangunan infrastruktur jalan, jembatan, dan fasilitas umum desa yang berkualitas dan merata.\n3. Memberdayakan ekonomi kerakyatan dan pertanian melalui optimalisasi BUMDes dan Kelompok Tani.\n4. Meningkatkan kualitas sumber daya manusia melalui dukungan pada sektor pendidikan dan kesehatan dasar.\n5. Melestarikan nilai-nilai gotong royong, budaya lokal, dan kerukunan antar umat beragama."
   },
   {
     id: 3,
     iconName: "Map",
     judul: "Kondisi Geografis",
     gambar: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    konten: "Terletak di bentang alam yang subur dan dialiri oleh perairan sungai yang strategis, Desa Delta Upang menyimpan potensi agraris dan perikanan yang sangat melimpah.\n\nKondisi topografi dataran rendah dengan curah hujan yang seimbang menjadikan tanah di desa kami sangat cocok untuk pengembangan sektor pertanian unggulan. Suasana pedesaan yang asri, udara yang segar, serta hamparan alam yang masih terjaga menjadikan Delta Upang tidak hanya makmur secara ekonomi namun juga nyaman untuk ditinggali."
+    konten: "Terletak di bentang alam yang subur dan dialiri oleh perairan sungai yang strategis, Desa sungai semut menyimpan potensi agraris dan perikanan yang sangat melimpah.\n\nKondisi topografi dataran rendah dengan curah hujan yang seimbang menjadikan tanah di desa kami sangat cocok untuk pengembangan sektor pertanian unggulan. Suasana pedesaan yang asri, udara yang segar, serta hamparan alam yang masih terjaga menjadikan sungai semut tidak hanya makmur secara ekonomi namun juga nyaman untuk ditinggali."
   },
   {
     id: 4,
     iconName: "Building2",
     judul: "Struktur Organisasi",
     gambar: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    konten: "Pemerintahan Desa Delta Upang didukung oleh struktur organisasi yang tangguh, responsif, dan adaptif terhadap kemajuan zaman. Diisi oleh putra-putri terbaik desa yang berdedikasi tinggi, kami melayani masyarakat dengan sepenuh hati.\n\nSetiap fungsi pemerintahan, mulai dari Kepala Desa, Sekretaris, jajaran Kepala Urusan (Kaur), Kepala Seksi (Kasi), hingga Kepala Dusun, berjalan secara sinergis dengan menjunjung tinggi prinsip transparansi dan profesionalisme demi kemajuan bersama seluruh elemen masyarakat Delta Upang."
+    konten: "Pemerintahan Desa sungai semut didukung oleh struktur organisasi yang tangguh, responsif, dan adaptif terhadap kemajuan zaman. Diisi oleh putra-putri terbaik desa yang berdedikasi tinggi, kami melayani masyarakat dengan sepenuh hati.\n\nSetiap fungsi pemerintahan, mulai dari Kepala Desa, Sekretaris, jajaran Kepala Urusan (Kaur), Kepala Seksi (Kasi), hingga Kepala Dusun, berjalan secara sinergis dengan menjunjung tinggi prinsip transparansi dan profesionalisme demi kemajuan bersama seluruh elemen masyarakat sungai semut."
   }
 ];
 
@@ -241,12 +241,12 @@ const initialBeranda = {
     "https://images.unsplash.com/photo-1592982537447-6f2a6a0a091c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
     "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
   ],
-  namaDesa: "Delta Upang",
+  namaDesa: "sungai semut",
   deskripsiDesa: "Kecamatan Makarti Jaya, Kabupaten Banyuasin \nProvinsi Sumatera Selatan",
   fotoKades: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&q=80",
   namaKades: "Hasanuddin, S.IP",
-  jabatanKades: "Kepala Desa Delta Upang",
-  sambutanKades: "Assalamu'alaikum Warahmatullahi Wabarakatuh. Puji syukur kita panjatkan ke hadirat Allah SWT. Selamat datang di website resmi Desa Delta Upang. Melalui media ini, kami berupaya mewujudkan transparansi dan kemudahan akses informasi bagi seluruh warga dan masyarakat luas mengenai program kerja, kegiatan, dan pembangunan di desa kita tercinta.",
+  jabatanKades: "Kepala Desa sungai semut",
+  sambutanKades: "Assalamu'alaikum Warahmatullahi Wabarakatuh. Puji syukur kita panjatkan ke hadirat Allah SWT. Selamat datang di website resmi Desa sungai semut. Melalui media ini, kami berupaya mewujudkan transparansi dan kemudahan akses informasi bagi seluruh warga dan masyarakat luas mengenai program kerja, kegiatan, dan pembangunan di desa kita tercinta.",
   stats: [
     { id: 1, num: "3.689", label: "Total Penduduk", subLaki: "1.874", subPerempuan: "1.815" },
     { id: 2, num: "823", label: "Kepala Keluarga" },
@@ -1127,10 +1127,10 @@ export default function App() {
                   <div className="bg-gradient-to-br from-emerald-500 to-teal-700 p-2.5 rounded-lg shadow-[0_8px_20px_rgba(13,148,136,0.3)]">
                     <Landmark className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold tracking-tight text-white">Desa Delta Upang</h3>
+                  <h3 className="text-2xl font-bold tracking-tight text-white">Desa sungai semut</h3>
                 </div>
                 <p className="text-gray-400 leading-relaxed mb-6 font-medium">
-                  Website resmi Pemerintah Desa Delta Upang, Kecamatan Makarti Jaya, Kabupaten Banyuasin, Sumatera Selatan. Melayani masyarakat dengan transparansi dan inovasi.
+                  Website resmi Pemerintah Desa sungai semut, Kecamatan Makarti Jaya, Kabupaten Banyuasin, Sumatera Selatan. Melayani masyarakat dengan transparansi dan inovasi.
                 </p>
               </div>
               <div className="md:pl-8">
@@ -1171,7 +1171,7 @@ export default function App() {
               </div>
             </div>
             <div className="border-t border-white/10 pt-8 text-center text-gray-500 text-sm font-medium">
-              <p>&copy; {new Date().getFullYear()} Pemerintah Desa Delta Upang. Seluruh hak cipta dilindungi.</p>
+              <p>&copy; {new Date().getFullYear()} Pemerintah Desa sungai semut. Seluruh hak cipta dilindungi.</p>
             </div>
           </div>
         </footer>
@@ -2207,7 +2207,7 @@ function HalamanProfilDesa({ isAdmin, daftarProfil, setDaftarProfil, initialTabI
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Profil Desa</h2>
           <div className="w-24 h-1.5 bg-gradient-to-r from-emerald-600 to-teal-400 mx-auto rounded-full"></div>
           <p className="mt-6 text-gray-600 text-lg leading-relaxed">
-            Mengenal lebih dekat sejarah, visi misi, letak geografis, dan struktur organisasi Pemerintah Desa Delta Upang.
+            Mengenal lebih dekat sejarah, visi misi, letak geografis, dan struktur organisasi Pemerintah Desa sungai semut.
           </p>
         </div>
 
@@ -2456,7 +2456,7 @@ function HalamanPemerintahan({ isAdmin, activeTab, daftarPerangkat, setDaftarPer
       case 'pkk': return 'Tim Penggerak PKK yang berfokus pada pemberdayaan dan kesejahteraan keluarga.';
       case 'kadus': return 'Daftar perangkat kewilayahan yang bertugas membantu Kepala Desa di wilayah Dusun.';
       case 'rt': return 'Daftar Ketua Rukun Tetangga (RT) yang menjadi ujung tombak pelayanan masyarakat.';
-      default: return 'Struktur Organisasi dan Tata Kerja (SOTK) Pemerintah Desa Delta Upang.';
+      default: return 'Struktur Organisasi dan Tata Kerja (SOTK) Pemerintah Desa sungai semut.';
     }
   };
 
@@ -3161,7 +3161,7 @@ function HalamanBerita({ isAdmin, activeTab, daftarBerita, setDaftarBerita, data
                   <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Berita & Informasi</h2>
                   <div className="w-24 h-1.5 bg-gradient-to-r from-emerald-600 to-teal-400 mx-auto rounded-full"></div>
                   <p className="mt-6 text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-                    Kabar terbaru seputar kegiatan, pengumuman, dan pembangunan di Desa Delta Upang.
+                    Kabar terbaru seputar kegiatan, pengumuman, dan pembangunan di Desa sungai semut.
                   </p>
                 </div>
 
@@ -3241,7 +3241,7 @@ function HalamanBerita({ isAdmin, activeTab, daftarBerita, setDaftarBerita, data
               <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Demografi Penduduk</h2>
               <div className="w-24 h-1.5 bg-gradient-to-r from-emerald-600 to-teal-400 mx-auto rounded-full"></div>
               <p className="mt-6 text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-                Persentase perbandingan jumlah penduduk Laki-laki dan Perempuan di Desa Delta Upang berdasarkan pembaruan data terakhir.
+                Persentase perbandingan jumlah penduduk Laki-laki dan Perempuan di Desa sungai semut berdasarkan pembaruan data terakhir.
               </p>
             </div>
 
@@ -3623,7 +3623,7 @@ function HalamanKontak() {
                    <div className="bg-white p-3 rounded-xl mb-4 shadow-inner flex items-center justify-center mx-auto w-16 h-16">
                      <MapPin className="w-8 h-8 text-teal-600" />
                    </div>
-                   <span className="font-extrabold text-2xl text-white drop-shadow-lg text-center px-4 block">Lokasi Kantor <br/> Desa Delta Upang</span>
+                   <span className="font-extrabold text-2xl text-white drop-shadow-lg text-center px-4 block">Lokasi Kantor <br/> Desa sungai semut</span>
                  </div>
               </div>
             </a>
