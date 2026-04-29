@@ -4,7 +4,8 @@ import {
   MapPin, Mail, ChevronRight, Landmark, ArrowRight,
   LogIn, LogOut, Edit, Trash2, Plus, Image as ImageIcon, Save, Upload, CheckCircle2,
   BookOpen, Target, Map, Building2, ChevronDown, CalendarDays, PieChart, TrendingUp, Activity,
-  ChevronLeft, ChevronsLeft, ChevronsRight
+  ChevronLeft, ChevronsLeft, ChevronsRight,
+  Headphones, Send, FileText
 } from 'lucide-react';
 
 // ================= FIREBASE CLOUD STORAGE SETUP =================
@@ -260,6 +261,7 @@ export default function App() {
   const [isDbConnected, setIsDbConnected] = useState(false); 
   const [dbError, setDbError] = useState(""); 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isPengaduanOpen, setIsPengaduanOpen] = useState(false);
   
   // State Active Pages & Tabs disimpan di localStorage agar tidak kembali ke beranda saat refresh
   const [currentPage, setCurrentPage] = useState(() => {
@@ -583,15 +585,15 @@ export default function App() {
 
   return (
     <div 
-      className="min-h-screen w-full bg-fixed bg-cover bg-center bg-no-repeat bg-gray-100"
+      className="min-h-screen w-full bg-fixed bg-cover bg-center bg-no-repeat bg-gray-100 relative"
       style={{ backgroundImage: `url(${dataBeranda.outerBg || 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'})` }}
     >
-      <div className="fixed inset-0 bg-black/40 pointer-events-none"></div>
+      <div className="fixed inset-0 bg-black/40 pointer-events-none z-0"></div>
 
-      <div className="max-w-[1440px] mx-auto min-h-screen flex flex-col font-sans bg-gray-50 text-gray-800 relative shadow-[0_0_60px_rgba(0,0,0,0.6)] selection:bg-sky-200 selection:text-sky-900">
+      <div className="max-w-[1440px] mx-auto min-h-screen flex flex-col font-sans bg-gray-50 text-gray-800 relative shadow-[0_0_60px_rgba(0,0,0,0.6)] selection:bg-sky-200 selection:text-sky-900 z-10">
 
         {dialog.isOpen && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-[100] p-4">
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-[110] p-4">
             <div className="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-8 animate-in zoom-in-95 border border-blue-100">
               <h3 className="text-xl font-extrabold text-gray-900 mb-4 flex items-center">
                 <Info className="w-6 h-6 mr-2 text-sky-600"/>
@@ -1176,12 +1178,13 @@ export default function App() {
           </div>
         </footer>
 
+        {/* WA BUTTON KHUSUS HALAMAN KONTAK (Dinaikkan sedikit agar tidak tertimpa fitur Pengaduan) */}
         {currentPage === 'kontak' && (
           <a
             href="https://wa.me/6282268764585"
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-gradient-to-tr from-[#128C7E] to-[#25D366] text-white p-4 rounded-full shadow-[0_10px_30px_rgba(37,211,102,0.5)] hover:shadow-[0_0_40px_rgba(37,211,102,0.8)] z-50 flex items-center justify-center transition-all duration-300 hover:scale-110 animate-in fade-in slide-in-from-bottom-10 group border border-white/20"
+            className="fixed bottom-[88px] right-6 md:bottom-[96px] md:right-8 bg-gradient-to-tr from-[#128C7E] to-[#25D366] text-white p-4 rounded-full shadow-[0_10px_30px_rgba(37,211,102,0.5)] hover:shadow-[0_0_40px_rgba(37,211,102,0.8)] z-50 flex items-center justify-center transition-all duration-300 hover:scale-110 animate-in fade-in slide-in-from-bottom-10 group border border-white/20"
           >
             <svg viewBox="0 0 24 24" className="w-7 h-7 md:w-8 md:h-8 fill-current">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.305-.88-.653-1.473-1.46-1.646-1.757-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
@@ -1191,6 +1194,81 @@ export default function App() {
             </span>
           </a>
         )}
+
+        {/* FITUR PENGADUAN (GLOBAL FLOATING BUTTON) */}
+        <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[90] flex flex-col items-end">
+            {/* Form Pengaduan Modal */}
+            {isPengaduanOpen && (
+              <div className="bg-white rounded-[16px] shadow-[0_15px_50px_rgba(0,0,0,0.25)] p-5 sm:p-6 w-[320px] sm:w-[350px] mb-4 border border-gray-100 animate-in slide-in-from-bottom-5 origin-bottom-right">
+                <form onSubmit={(e) => { e.preventDefault(); showAlert('Pengaduan berhasil dikirim! Terima kasih atas partisipasi Anda.'); setIsPengaduanOpen(false); }}>
+                  {/* Nama */}
+                  <div className="mb-4">
+                    <label className="block text-[14px] font-bold text-gray-900 mb-1.5">Nama <span className="text-red-500">*</span></label>
+                    <input type="text" required placeholder="Masukkan nama Anda" className="w-full px-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#83d65c] focus:border-[#83d65c] outline-none text-[13px] text-gray-700 transition-all placeholder:text-gray-400" />
+                  </div>
+                  {/* No WA */}
+                  <div className="mb-4">
+                    <label className="block text-[14px] font-bold text-gray-900 mb-1.5">Nomor Telepon/WA <span className="text-red-500">*</span></label>
+                    <input type="tel" required placeholder="Masukkan nomor HP/WhatsApp" className="w-full px-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#83d65c] focus:border-[#83d65c] outline-none text-[13px] text-gray-700 transition-all placeholder:text-gray-400" />
+                  </div>
+                  {/* Kategori */}
+                  <div className="mb-4 relative">
+                    <label className="block text-[14px] font-bold text-gray-900 mb-1.5">Kategori Pengaduan <span className="text-red-500">*</span></label>
+                    <select required className="w-full px-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#83d65c] focus:border-[#83d65c] outline-none text-[13px] text-gray-500 appearance-none transition-all">
+                      <option value="">Pilih kategori pengaduan</option>
+                      <option value="Infrastruktur">Infrastruktur</option>
+                      <option value="Pelayanan">Pelayanan Publik</option>
+                      <option value="Sosial">Bantuan Sosial</option>
+                      <option value="Lainnya">Lainnya</option>
+                    </select>
+                    <ChevronDown className="absolute right-3 top-9 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
+                  {/* Pengaduan Textarea */}
+                  <div className="mb-4">
+                    <label className="block text-[14px] font-bold text-gray-900 mb-1.5">Pengaduan <span className="text-red-500">*</span></label>
+                    <textarea required rows={3} placeholder="Masukkan kesan, informasi, atau detail aduan Anda" className="w-full px-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg focus:ring-1 focus:ring-[#83d65c] focus:border-[#83d65c] outline-none text-[13px] text-gray-700 resize-none transition-all placeholder:text-gray-400"></textarea>
+                  </div>
+                  {/* Lampiran */}
+                  <div className="mb-5">
+                    <label className="block text-[14px] font-bold text-gray-900 mb-1.5">Lampiran</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <FileText className="h-4 w-4 text-gray-500" />
+                      </div>
+                      <input type="text" readOnly placeholder="Unggah foto/PDF jika ada" className="w-full pl-9 pr-3 py-2.5 bg-[#f4f5f7] border border-gray-200 rounded-lg text-[13px] text-gray-400 cursor-pointer" />
+                      <input type="file" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                    </div>
+                  </div>
+                  {/* Submit Button */}
+                  <div className="flex justify-end">
+                    <button type="submit" className="bg-[#83d65c] hover:bg-[#6cb949] text-white font-bold py-2.5 px-6 rounded-lg flex items-center transition-colors text-[14px] shadow-sm">
+                      <Send className="w-4 h-4 mr-2" /> Kirim
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
+
+            {/* Tombol-tombol Floating Bawah */}
+            <div className="flex items-center gap-3">
+              {/* Tombol Aksesibilitas Kiri */}
+              <button className="bg-[#35529f] hover:bg-blue-800 text-white p-2 rounded-full shadow-[0_4px_10px_rgba(0,0,0,0.2)] border-2 border-white transition-transform hover:scale-105 flex items-center justify-center h-12 w-12 shrink-0">
+                 {/* Menggunakan Inline SVG Aksesibilitas (Wheelchair) agar akurat seperti di Screenshot */}
+                 <svg className="w-7 h-7 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                   <path d="M11 2a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm-1.8 11.5v-2.3H6.8V9.3h4c1 0 1.9.5 2.4 1.2l1.6 2.5c.2.3.6.5 1 .5h2.4v2h-3c-.6 0-1.1-.3-1.4-.7l-1.1-1.7v3.2c0 1.2-.6 2.3-1.6 2.9A4.4 4.4 0 0 1 4.5 17c0-2.4 1.8-4.3 4.2-4.5h.5zm-3 8.3a6.3 6.3 0 0 1-4-8.8l1.6 1.1A4.5 4.5 0 0 0 5.4 18c1.3 1 3 1.2 4.4.5L11 20a6.3 6.3 0 0 1-4.8 1.8z"/>
+                 </svg>
+              </button>
+
+              {/* Tombol Pengaduan Kanan */}
+              <button
+                onClick={() => setIsPengaduanOpen(!isPengaduanOpen)}
+                className="bg-[#df8b88] hover:bg-[#c97573] text-white px-5 py-2.5 rounded-full shadow-[0_4px_10px_rgba(0,0,0,0.2)] border-2 border-white flex items-center justify-center font-bold transition-transform hover:scale-105 h-12 shrink-0"
+              >
+                {isPengaduanOpen ? <X className="w-5 h-5 mr-2" /> : <Headphones className="w-5 h-5 mr-2" />}
+                <span className="text-[15px] pt-0.5">Pengaduan</span>
+              </button>
+            </div>
+        </div>
       </div>
 
       {showLoginModal && (
@@ -3312,7 +3390,7 @@ function HalamanBerita({ isAdmin, activeTab, daftarBerita, setDaftarBerita, data
                     <div className="flex items-center">
                       <div className="w-12 h-12 bg-rose-50 text-rose-500 rounded-2xl flex justify-center items-center mr-4 shadow-sm border border-rose-100">
                         <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                           <path d="M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"></path><path d="M12 13v8"></path><path d="M9 18h6"></path>
+                           <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                         </svg>
                       </div>
                       <div>
@@ -3327,167 +3405,19 @@ function HalamanBerita({ isAdmin, activeTab, daftarBerita, setDaftarBerita, data
                   
                   <div className="w-full bg-gray-100 h-6 rounded-full overflow-hidden shadow-inner border border-gray-200 relative">
                     <div 
-                      className="bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 h-full rounded-full animate-grow shadow-[inset_0_-2px_4px_rgba(0,0,0,0.2)] absolute left-0 top-0"
+                      className="bg-gradient-to-r from-rose-400 via-pink-500 to-rose-600 h-full rounded-full animate-grow shadow-[inset_0_-2px_4px_rgba(0,0,0,0.2)] absolute left-0 top-0"
                       style={{ width: `${persentasePerempuan}%` }}
                     >
                       <div className="absolute inset-0 w-full h-full" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)', transform: 'skewX(-20deg)', animation: 'slideRight 2s infinite linear' }}></div>
                     </div>
                   </div>
                 </div>
-                
-                <style>{`
-                  @keyframes slideRight {
-                    0% { left: -100%; }
-                    100% { left: 100%; }
-                  }
-                `}</style>
               </div>
             </div>
           </div>
         )}
-
       </div>
 
-      {showEditorBerita && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 max-h-[90vh] overflow-y-auto border border-blue-100 animate-in zoom-in-95">
-            <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100 sticky top-0 bg-white z-10">
-              <h3 className="text-2xl font-extrabold text-gray-900 flex items-center">
-                <div className="bg-blue-100 p-2 rounded-xl mr-3">
-                   <Newspaper className="w-6 h-6 text-blue-600" />
-                </div>
-                {editDataBerita.id ? 'Edit Berita' : 'Tambah Berita Baru'}
-              </h3>
-              <button type="button" onClick={() => setShowEditorBerita(false)} className="text-gray-400 hover:text-gray-600 bg-gray-100 p-2 rounded-full hover:bg-gray-200 transition">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            
-            <form onSubmit={handleSaveBerita} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="col-span-full">
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Judul Berita</label>
-                  <input 
-                    type="text" required
-                    value={editDataBerita.judul}
-                    onChange={(e) => setEditDataBerita({...editDataBerita, judul: e.target.value})}
-                    className="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium" 
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Kategori</label>
-                  <select 
-                    required
-                    value={editDataBerita.kategori}
-                    onChange={(e) => setEditDataBerita({...editDataBerita, kategori: e.target.value})}
-                    className="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium"
-                  >
-                    <option value="">Pilih Kategori</option>
-                    <option value="Sosial">Sosial</option>
-                    <option value="Kegiatan">Kegiatan</option>
-                    <option value="Pemberdayaan">Pemberdayaan</option>
-                    <option value="Pemerintahan">Pemerintahan</option>
-                    <option value="Pengumuman">Pengumuman</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Tanggal Publikasi</label>
-                  <input 
-                    type="text" required placeholder="Contoh: 15 Okt 2024"
-                    value={editDataBerita.tanggal}
-                    onChange={(e) => setEditDataBerita({...editDataBerita, tanggal: e.target.value})}
-                    className="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium" 
-                  />
-                </div>
-
-                <div className="col-span-full">
-                  <label className="block text-sm font-bold text-gray-700 mb-3">Foto Sampul Utama</label>
-                  <div className="flex items-center gap-5 bg-gray-50 p-4 rounded-2xl border border-gray-200">
-                    {editDataBerita.gambar ? (
-                      <img src={editDataBerita.gambar} alt="Preview" className="w-32 h-32 object-cover rounded-xl shadow-sm border border-gray-200" />
-                    ) : (
-                      <div className="w-32 h-32 bg-gray-200 rounded-xl flex items-center justify-center border border-gray-300 border-dashed">
-                        <ImageIcon className="w-8 h-8 text-gray-400" />
-                      </div>
-                    )}
-                    <div className="flex-1">
-                      <label className="cursor-pointer bg-white text-blue-700 border-2 border-blue-200 hover:bg-blue-50 hover:border-blue-300 px-5 py-3 rounded-xl font-bold flex items-center justify-center transition-all shadow-sm w-max">
-                        <Upload className="w-5 h-5 mr-2" /> Upload Foto Baru
-                        <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
-                      </label>
-                      <p className="text-sm text-gray-500 mt-3 font-medium">Gambar ini akan tampil di daftar berita utama.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-span-full">
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Ringkasan / Isi Berita (Gunakan Enter untuk Baris Baru)</label>
-                  <textarea 
-                    required rows={8}
-                    value={editDataBerita.excerpt}
-                    onChange={(e) => setEditDataBerita({...editDataBerita, excerpt: e.target.value})}
-                    className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium leading-relaxed" 
-                  ></textarea>
-                </div>
-
-                <div className="col-span-full border-t border-gray-200 pt-6">
-                  <label className="block text-sm font-bold text-gray-700 mb-3">Foto Tambahan (Opsional - Muncul Dalam Isi Berita)</label>
-                  <div className="bg-gray-50 p-5 rounded-2xl border border-gray-200">
-                    <label className="cursor-pointer bg-white text-blue-700 border-2 border-blue-200 hover:bg-blue-50 px-5 py-3 rounded-xl font-bold flex items-center justify-center transition-all shadow-sm w-full">
-                      <Upload className="w-5 h-5 mr-2" /> Pilih Beberapa Foto Tambahan
-                      <input type="file" accept="image/*" multiple className="hidden" onChange={handleImageTambahanUpload} />
-                    </label>
-                    
-                    {(editDataBerita.galeri && editDataBerita.galeri.length > 0) && (
-                      <div className="space-y-4 mt-5">
-                        {editDataBerita.galeri.map((g: any) => (
-                          <div key={g.id} className="flex items-center gap-4 bg-white p-3 rounded-xl border border-gray-200 shadow-sm animate-in fade-in">
-                            <img src={g.url} alt="Preview Tambahan" className="w-20 h-20 object-cover rounded-lg shadow-sm border border-gray-100" />
-                            <div className="flex-1">
-                              <label className="block text-xs font-bold text-gray-600 mb-1.5">Posisi Foto Terhadap Teks</label>
-                              <div className="relative">
-                                <select 
-                                  value={g.posisi} 
-                                  onChange={(e) => ubahPosisiGaleri(g.id, e.target.value)}
-                                  className="w-full pl-4 pr-8 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium focus:ring-2 focus:ring-sky-500 appearance-none"
-                                >
-                                  <option value="atas">Paling Atas (Di Bawah Judul)</option>
-                                  <option value="kiri">Kiri (Teks Mengalir di Kanan)</option>
-                                  <option value="kanan">Kanan (Teks Mengalir di Kiri)</option>
-                                  <option value="tengah">Tengah (Di Antara Paragraf)</option>
-                                </select>
-                                <ChevronDown className="absolute right-3 top-2.5 w-4 h-4 text-gray-400 pointer-events-none" />
-                              </div>
-                            </div>
-                            <button 
-                              type="button" 
-                              onClick={() => hapusImageGaleri(g.id)}
-                              className="p-2.5 bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white rounded-lg transition-colors border border-rose-100"
-                            >
-                              <Trash2 className="w-5 h-5" />
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-              
-              <div className="flex justify-end gap-4 pt-6 sticky bottom-0 bg-white p-4 -mx-8 -mb-8 rounded-b-3xl">
-                <button type="button" onClick={() => setShowEditorBerita(false)} className="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl font-bold transition-colors">
-                  Batal
-                </button>
-                <button type="submit" className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold flex items-center transition-all shadow-[0_8px_20px_rgba(37,99,235,0.3)] hover:shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover:-translate-y-0.5">
-                  <Save className="w-5 h-5 mr-2" /> Simpan Berita
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* MODAL EDITOR GRAFIK */}
       {showEditorGrafik && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 animate-in zoom-in-95 border border-blue-100">
@@ -3503,7 +3433,7 @@ function HalamanBerita({ isAdmin, activeTab, daftarBerita, setDaftarBerita, data
             
             <form onSubmit={handleSaveGrafik} className="space-y-5">
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Jumlah Penduduk Laki-laki</label>
+                <label className="block text-sm font-bold text-gray-700 mb-2">Jumlah Laki-laki</label>
                 <input 
                   type="number" required min="0"
                   value={editDataGrafik.lakiLaki}
@@ -3512,7 +3442,7 @@ function HalamanBerita({ isAdmin, activeTab, daftarBerita, setDaftarBerita, data
                 />
               </div>
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Jumlah Penduduk Perempuan</label>
+                <label className="block text-sm font-bold text-gray-700 mb-2">Jumlah Perempuan</label>
                 <input 
                   type="number" required min="0"
                   value={editDataGrafik.perempuan}
@@ -3520,28 +3450,26 @@ function HalamanBerita({ isAdmin, activeTab, daftarBerita, setDaftarBerita, data
                   className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500 font-medium" 
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Tahun Data</label>
-                  <input 
-                    type="number" required
-                    value={editDataGrafik.tahun}
-                    onChange={(e) => setEditDataGrafik({...editDataGrafik, tahun: e.target.value})}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500 font-medium" 
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Bulan Update</label>
-                  <input 
-                    type="text" required placeholder="Contoh: Desember"
-                    value={editDataGrafik.updateTerakhir}
-                    onChange={(e) => setEditDataGrafik({...editDataGrafik, updateTerakhir: e.target.value})}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500 font-medium" 
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-2">Tahun Data</label>
+                <input 
+                  type="number" required min="2000"
+                  value={editDataGrafik.tahun}
+                  onChange={(e) => setEditDataGrafik({...editDataGrafik, tahun: e.target.value})}
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500 font-medium" 
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-2">Update Terakhir (Contoh: Desember 2024)</label>
+                <input 
+                  type="text" required
+                  value={editDataGrafik.updateTerakhir}
+                  onChange={(e) => setEditDataGrafik({...editDataGrafik, updateTerakhir: e.target.value})}
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500 font-medium" 
+                />
               </div>
               
-              <div className="flex justify-end gap-3 pt-4">
+              <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
                 <button type="button" onClick={() => setShowEditorGrafik(false)} className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl font-bold transition">Batal</button>
                 <button type="submit" className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg transition-all hover:-translate-y-0.5 flex items-center">
                   <Save className="w-4 h-4 mr-2" /> Simpan Data
@@ -3551,76 +3479,87 @@ function HalamanBerita({ isAdmin, activeTab, daftarBerita, setDaftarBerita, data
           </div>
         </div>
       )}
-
     </div>
   );
 }
 
-/* ================= Halaman Kontak ================= */
 function HalamanKontak() {
   return (
     <div className="animate-in fade-in zoom-in-95 duration-500 py-16 bg-gray-50 min-h-[70vh]">
       <div className="container mx-auto px-4 lg:px-8">
-        
         <div className="text-center mb-16">
-          <span className="text-sky-600 font-bold tracking-widest uppercase text-sm mb-2 block">Hubungi Kami</span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Kontak & Layanan</h2>
+          <span className="text-sky-600 font-bold tracking-widest uppercase text-sm mb-2 block">Layanan Pengaduan & Informasi</span>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Hubungi Kami</h2>
           <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-sky-400 mx-auto rounded-full"></div>
           <p className="mt-6 text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-            Kami siap melayani Anda. Kunjungi kantor desa atau hubungi kami melalui kontak yang tersedia untuk informasi lebih lanjut.
+            Kami siap melayani Anda. Silakan hubungi Pemerintah Desa Sungai Semut melalui kontak di bawah ini.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Informasi Kontak */}
-          <div className="space-y-8">
-            <div className="bg-white p-8 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex items-start hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-shadow duration-300 group">
-              <div className="bg-sky-50 border border-sky-100 p-4 rounded-2xl mr-6 group-hover:bg-sky-600 transition-colors duration-300">
-                <MapPin className="w-8 h-8 text-sky-600 group-hover:text-white transition-colors duration-300" />
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="bg-white rounded-3xl shadow-[0_15px_40px_rgba(0,0,0,0.06)] border border-gray-100 p-8 md:p-12 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-300">
+            <h3 className="text-2xl font-extrabold text-gray-900 mb-8 border-b border-gray-100 pb-4">Informasi Kontak</h3>
+            
+            <div className="space-y-8">
+              <div className="flex items-start group">
+                <div className="w-14 h-14 bg-sky-50 text-sky-600 rounded-2xl flex items-center justify-center mr-5 shadow-sm border border-sky-100 group-hover:bg-sky-600 group-hover:text-white transition-colors duration-300 flex-shrink-0">
+                  <MapPin className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Alamat Kantor Desa</h4>
+                  <p className="text-gray-900 font-bold text-lg leading-tight">Jl. Sunan Kalijaga Dusun II, Kec. Makarti Jaya, Kab. Banyuasin, Sumsel 30972</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xl font-extrabold text-gray-900 mb-3">Alamat Kantor</h3>
-                <p className="text-gray-600 text-lg leading-relaxed font-medium">Jl. Sunan Kalijaga Dusun II<br/>Kecamatan Makarti Jaya, Kab. Banyuasin<br/>Provinsi Sumatera Selatan 30972</p>
+
+              <div className="flex items-start group">
+                <div className="w-14 h-14 bg-rose-50 text-rose-500 rounded-2xl flex items-center justify-center mr-5 shadow-sm border border-rose-100 group-hover:bg-rose-500 group-hover:text-white transition-colors duration-300 flex-shrink-0">
+                  <Phone className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Telepon / WhatsApp</h4>
+                  <p className="text-gray-900 font-bold text-lg">0822-6876-4585</p>
+                </div>
+              </div>
+
+              <div className="flex items-start group">
+                <div className="w-14 h-14 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center mr-5 shadow-sm border border-amber-100 group-hover:bg-amber-500 group-hover:text-white transition-colors duration-300 flex-shrink-0">
+                  <Mail className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Email Resmi</h4>
+                  <p className="text-gray-900 font-bold text-lg">sungaisemut@gmail.com</p>
+                </div>
               </div>
             </div>
 
-            <div className="bg-white p-8 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex items-start hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-shadow duration-300 group">
-              <div className="bg-sky-50 border border-sky-100 p-4 rounded-2xl mr-6 group-hover:bg-sky-600 transition-colors duration-300">
-                <Phone className="w-8 h-8 text-sky-600 group-hover:text-white transition-colors duration-300" />
-              </div>
-              <div>
-                <h3 className="text-xl font-extrabold text-gray-900 mb-3">Telepon / WhatsApp</h3>
-                <p className="text-gray-600 text-lg leading-relaxed font-medium">0822-6876-4585<br/>Layanan aktif pada jam kerja.</p>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex items-start hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-shadow duration-300 group">
-              <div className="bg-sky-50 border border-sky-100 p-4 rounded-2xl mr-6 group-hover:bg-sky-600 transition-colors duration-300">
-                <Mail className="w-8 h-8 text-sky-600 group-hover:text-white transition-colors duration-300" />
-              </div>
-              <div>
-                <h3 className="text-xl font-extrabold text-gray-900 mb-3">Email</h3>
-                <p className="text-gray-600 text-lg leading-relaxed font-medium">sungaisemut@gmail.com<br/>Untuk keperluan surat-menyurat resmi.</p>
-              </div>
+            <div className="mt-12 bg-blue-50 border border-blue-100 rounded-2xl p-6">
+              <h4 className="font-extrabold text-blue-900 mb-2 flex items-center">
+                <CalendarDays className="w-5 h-5 mr-2 text-blue-600" /> Jam Pelayanan
+              </h4>
+              <ul className="space-y-2 text-blue-800 font-medium">
+                <li className="flex justify-between"><span>Senin - Kamis:</span> <span>08:00 - 15:00 WIB</span></li>
+                <li className="flex justify-between"><span>Jumat:</span> <span>08:00 - 11:30 WIB</span></li>
+                <li className="flex justify-between text-rose-600 font-bold"><span>Sabtu - Minggu:</span> <span>Tutup (Libur)</span></li>
+              </ul>
             </div>
           </div>
 
-          {/* Peta Lokasi */}
-          <div className="h-full min-h-[400px]">
+          <div className="bg-white rounded-3xl shadow-[0_15px_40px_rgba(0,0,0,0.06)] border border-gray-100 overflow-hidden flex flex-col hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-300">
             <a 
-              href="https://maps.app.goo.gl/o1v4m8G5F5R4t4vP8" 
+              href="https://maps.app.goo.gl/Btw5vQdZ7zV2iM8K7" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="block w-full h-full bg-gray-200 rounded-3xl overflow-hidden shadow-xl border-4 border-white relative group cursor-pointer"
+              className="w-full h-full min-h-[400px] bg-gray-200 relative group cursor-pointer block"
+              title="Buka di Google Maps"
             >
               <img 
                 src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                 alt="Peta Lokasi" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-blue-900/40 group-hover:bg-blue-900/20 transition-colors duration-300 flex items-center justify-center">
-                 <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-2xl transform group-hover:scale-110 transition-transform duration-300">
-                   <div className="bg-white p-3 rounded-xl mb-4 shadow-inner flex items-center justify-center mx-auto w-16 h-16">
+                 <div className="bg-white/20 backdrop-blur-md p-6 rounded-3xl border border-white/30 shadow-2xl transform transition-transform group-hover:scale-110 flex flex-col items-center">
+                   <div className="bg-white p-3 rounded-full mb-3 shadow-inner flex items-center justify-center mx-auto w-16 h-16">
                      <MapPin className="w-8 h-8 text-sky-600" />
                    </div>
                    <span className="font-extrabold text-2xl text-white drop-shadow-lg text-center px-4 block">Lokasi Kantor <br/> Desa Sungai Semut</span>
