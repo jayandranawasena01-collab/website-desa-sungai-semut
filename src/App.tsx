@@ -639,7 +639,7 @@ export default function App() {
       <div className="max-w-[1440px] mx-auto min-h-screen flex flex-col font-sans bg-gray-50 text-gray-800 relative shadow-[0_0_60px_rgba(0,0,0,0.6)] selection:bg-sky-200 selection:text-sky-900 z-10">
 
         {dialog.isOpen && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-[110] p-4">
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-[999] p-4">
             <div className="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-8 animate-in zoom-in-95 border border-blue-100">
               <h3 className="text-xl font-extrabold text-gray-900 mb-4 flex items-center">
                 <Info className="w-6 h-6 mr-2 text-sky-600"/>
@@ -3719,7 +3719,7 @@ function NavButton({ children, active, onClick, icon }: any) {
 function MobileNavButton({ children, active, onClick }: any) {
   return (
     <button
-      onClick={onClick}
+      onClick={onClick
       className={`w-full text-left px-5 py-4 rounded-xl text-lg font-bold transition-all ${
         active 
           ? 'bg-gradient-to-r from-blue-800 to-sky-800 text-white border-l-4 border-sky-400 shadow-inner' 
